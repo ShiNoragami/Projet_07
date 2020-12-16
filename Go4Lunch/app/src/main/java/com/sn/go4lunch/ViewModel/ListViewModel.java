@@ -3,6 +3,9 @@ package com.sn.go4lunch.ViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.sn.go4lunch.Model.PlaceInfo.PlaceDetail.PlaceDetailsResults;
+import com.sn.go4lunch.Utils.PlacesStream;
+
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -20,7 +23,7 @@ public class ListViewModel extends ViewModel {
     }
 
     public void streamFetchPlaceInfo(String location, int radius, String type, String key){
-        this.disposable.add(PlacesStreams.streamFetchPlaceInfo(location, radius, type, key)
+        this.disposable.add(PlacesStream.streamFetchPlaceInfo(location, radius, type, key)
                 .doOnSubscribe(sub -> isLoading.postValue(true))
                 .doOnComplete(() -> isLoading.postValue(false))
                 .doOnError(error -> isLoading.postValue(false))

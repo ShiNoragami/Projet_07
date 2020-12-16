@@ -1,5 +1,10 @@
 package com.sn.go4lunch.Utils;
 
+import com.sn.go4lunch.Model.AutoComplete.AutoCompleteResult;
+import com.sn.go4lunch.Model.PlaceInfo.MapPlacesInfos;
+import com.sn.go4lunch.Model.PlaceInfo.PlaceDetail.PlaceDetailsInfo;
+
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -10,10 +15,10 @@ import retrofit2.http.Query;
 
 public interface PlacesService {
     @GET("nearbysearch/json?")
-    Observable<MapPlacesInfo> getNearbyPlaces(@Query("location") String location,
-                                              @Query("radius") int radius,
-                                              @Query("type") String type,
-                                              @Query("key") String key);
+    Observable<MapPlacesInfos> getNearbyPlaces(@Query("location") String location,
+                                               @Query("radius") int radius,
+                                               @Query("type") String type,
+                                               @Query("key") String key);
 
     @GET("details/json")
     Observable<PlaceDetailsInfo> getPlacesInfo(@Query("placeid") String placeId,
@@ -26,12 +31,12 @@ public interface PlacesService {
                                                         @Query("key") String apiKey );
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/maps/api/place/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(new OkHttpClient.Builder()
-                    .addInterceptor(new HttpLoggingInterceptor()
-                            .setLevel(HttpLoggingInterceptor.Level.BASIC))
-                    .build())
-            .build();
+        .baseUrl("https://maps.googleapis.com/maps/api/place/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor()
+                        .setLevel(HttpLoggingInterceptor.Level.BASIC))
+                .build())
+        .build();
 }

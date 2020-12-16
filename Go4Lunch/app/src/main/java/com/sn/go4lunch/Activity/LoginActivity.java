@@ -16,6 +16,10 @@ import com.sn.go4lunch.ViewModel.CommunicationViewModel;
 
 import java.util.Arrays;
 
+import static com.sn.go4lunch.Activity.MainActivity.DEFAULT_NOTIFICATION;
+import static com.sn.go4lunch.Activity.MainActivity.DEFAULT_SEARCH_RADIUS;
+import static com.sn.go4lunch.Activity.MainActivity.DEFAULT_ZOOM;
+
 public class LoginActivity extends BaseActivity {
     //DATA
     private static final int RC_SIGN_IN = 1000;
