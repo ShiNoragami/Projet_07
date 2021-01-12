@@ -13,24 +13,24 @@ import retrofit2.http.Query;
 
 interface GoogleAPIService {
 
-    @GET("nearbysearch/json?")
+    @GET("api/place/nearbysearch/json?sensor=true&key=AIzaSyBo7vFljY6QFDzKGgeLotZAl4Bl7Y1DzX0")
     Observable<GooglePlaces> getPlaces(@Query("location") String location,
                                        @Query("type") String type,
                                        @Query("radius") int radius,
                                        @Query("key") String key);
 
     Retrofit retrofitGooglePlaces = new Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/maps/api/place/")
+            .baseUrl("https://maps.googleapis.com/maps/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
-    @GET("details/json?")
+    @GET("api/place/details/json?key=AIzaSyBo7vFljY6QFDzKGgeLotZAl4Bl7Y1DzX0")
     Observable<GooglePlacesDetails> getPlacesDetails(@Query("key") String key,
                                                      @Query("place_id") String placeId);
 
     Retrofit retrofitGooglePlacesDetails = new Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/maps/api/place/")
+            .baseUrl("https://maps.googleapis.com/maps/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();

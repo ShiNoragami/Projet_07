@@ -53,7 +53,7 @@ public class ListFragment extends Fragment implements RestaurantsAdapter.Recycle
     }
 
     @Override
-    public View onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_restaurants_list, container, false);
 
         restaurantList = new ArrayList<>();
@@ -140,7 +140,6 @@ public class ListFragment extends Fragment implements RestaurantsAdapter.Recycle
             }
         });
     }
-
 
     // Execute HTTP request to retrieve nearby places
     private void executeSearchNearbyPlacesRequest(View v) {

@@ -201,7 +201,7 @@ public class MainPageActivity extends AppCompatActivity implements NavigationVie
     // Create Restaurant object from Autocomplete Place object
     private Restaurant createRestaurantFromPlaceAutocomplete(Place place) {
 
-        String imageBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&maxheight=100&photoreference=";
+        String imageBaseUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&maxheight=300&photoreference=";
 
         Restaurant restaurant = new Restaurant();
 

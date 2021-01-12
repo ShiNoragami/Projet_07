@@ -119,10 +119,12 @@ public class Restaurant implements Serializable {
             restaurant.isOpenNow = result.getOpeningHours().getOpenNow().toString();
         }
 
-        if (result.getPhotos() != null)
+        if (result.getPhotos() != null) {
             restaurant.imageUrl = imageBaseUrl + result.getPhotos().get(0).getPhotoReference()
                     + "&key=" + BuildConfig.google_apikey;
-        return restaurant;
+        }
+            return restaurant;
+
     }
 
     // Add data from Details Request to Restaurant object

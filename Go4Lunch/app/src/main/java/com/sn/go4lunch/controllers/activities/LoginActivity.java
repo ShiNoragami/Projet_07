@@ -10,12 +10,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.firebase.ui.auth.data.model.User;
+import com.sn.go4lunch.models.User;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sn.go4lunch.R;
 import com.sn.go4lunch.utils.UserHelper;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -28,6 +29,10 @@ public class LoginActivity extends AppCompatActivity {
 
     //identifier for sign in
     private static final int RC_SIGN_IN=100;
+    //private myfirebase
+    //private FirebaseAuth mAuth;
+    //private myauthui
+    //private  AuthUI mUi;
 
     @BindView(R.id.main_constraint_layout)
     ConstraintLayout constraintLayout;
@@ -38,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
         //remove toolbar main screen
         //getSupportActionToolBar().hide();
+        //mUi = AuthUI.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
@@ -67,47 +75,40 @@ public class LoginActivity extends AppCompatActivity {
     private void startEmailSignInActivity() {
 
         startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
+                AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(Collections.singletonList(
                                 new AuthUI.IdpConfig.EmailBuilder().build()))
                         .setIsSmartLockEnabled(false, true)
                         .build(), RC_SIGN_IN);
-
     }
 
     // Launch Google sign-in activity
     private void startGoogleSignInActivity() {
 
         startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
+                AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(Collections.singletonList(
                                 new AuthUI.IdpConfig.GoogleBuilder().build()))
                         .setIsSmartLockEnabled(false, true)
                         .build(), RC_SIGN_IN);
-
     }
 
     // Launch Facebook sign-in activity
     private void startFacebookSignInActivity() {
 
         startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
+                AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(Collections.singletonList(
                                 new AuthUI.IdpConfig.FacebookBuilder().build()))
                         .setIsSmartLockEnabled(false, true)
                         .build(), RC_SIGN_IN);
-
     }
 
     // Launch Twitter sign-in activity
     private void startTwitterSignInActivity() {
 
         startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
+                AuthUI.getInstance().createSignInIntentBuilder()
                         .setAvailableProviders(Collections.singletonList(
                                 new AuthUI.IdpConfig.TwitterBuilder().build()))
                         .setIsSmartLockEnabled(false, true)
@@ -131,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     private void handleResponseAfterSignIn(int requestCode, int resultCode, Intent data){
 
         IdpResponse response = IdpResponse.fromResultIntent(data);
+
         if (requestCode == RC_SIGN_IN){
             if (resultCode == RESULT_OK){
                 //show message, create user and start MainPageActivity
@@ -152,21 +154,20 @@ public class LoginActivity extends AppCompatActivity {
 
     //Create user in Firestore
     private void createUserInFirestore(){
-        String urlPicture =
-                FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() != null ?
-                Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()
-                        .toString()) : null;
-        String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        String uid = FirebaseAuth.getInstance().getUid();
+        String urlPicture =(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhotoUrl() != null) ?
+                Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).toString() : null;
 
-        UserHelper.getUser(FirebaseAuth.getInstance().getCurrentUser().getUid()
+        String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        UserHelper.getUser(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addOnSuccessListener(documentSnapshot -> {
                     User currentUser = documentSnapshot.toObject(User.class);
-                    if (currentUser !=null)
+                    if (currentUser != null)
                         UserHelper.createUser(uid, username, urlPicture, currentUser.getChosenRestaurant(),
-                                currentUser.getLikedRestaurants(), currentUser.isNotificationEnabled());
+                                currentUser.getLikedRestaurants(), currentUser.isNotificationsEnabled());
                     else
                         UserHelper.createUser(uid, username, urlPicture, null, null, false);
-        }));
+        });
     }
 }
