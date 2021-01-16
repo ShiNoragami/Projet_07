@@ -1,5 +1,6 @@
 package com.sn.go4lunch.utils;
 
+import com.sn.go4lunch.BuildConfig;
 import com.sn.go4lunch.models.GooglePlaces;
 import com.sn.go4lunch.models.GooglePlacesDetails;
 
@@ -13,7 +14,7 @@ import retrofit2.http.Query;
 
 interface GoogleAPIService {
 
-    @GET("api/place/nearbysearch/json?sensor=true&key=AIzaSyBo7vFljY6QFDzKGgeLotZAl4Bl7Y1DzX0")
+    @GET("api/place/nearbysearch/json?sensor=true&key=" + BuildConfig.google_apikey)
     Observable<GooglePlaces> getPlaces(@Query("location") String location,
                                        @Query("type") String type,
                                        @Query("radius") int radius,
@@ -25,7 +26,7 @@ interface GoogleAPIService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
-    @GET("api/place/details/json?key=AIzaSyBo7vFljY6QFDzKGgeLotZAl4Bl7Y1DzX0")
+    @GET("api/place/details/json?key=" + BuildConfig.google_apikey)
     Observable<GooglePlacesDetails> getPlacesDetails(@Query("key") String key,
                                                      @Query("place_id") String placeId);
 

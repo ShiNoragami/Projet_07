@@ -18,8 +18,8 @@
 
     <string name="google_maps_api_key" translatable="false">AIzaSyBo7vFljY6QFDzKGgeLotZAl4Bl7Y1DzX0</string>
 
-    <string name="twitter_consumer_key" translatable="false">drWeGy0eAyar1huLud3mOjNXZ</string>
-    <string name="twitter_consumer_secret" translatable="false">dZB0kEayXaKD0CtmjkWaKjFmqFK06UIBLIhFIuy7HlW9EegjHF</string>
+    <string name="twitter_consumer_key" translatable="false">P0q8bibcBKmpGMPJk5b3kfTt5</string>
+    <string name="twitter_consumer_secret" translatable="false">pXAVlratB26l1vQnzlmEtbr8E3wNeuSWjjNog6QJm2InPoKI3q</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
